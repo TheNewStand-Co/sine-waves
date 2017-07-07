@@ -68,7 +68,6 @@ SineWaves.prototype.options = {
   rotate: 0,
   ease: 'Linear',
   wavesWidth: '95%',
-  isLoopBlocked: false,
 };
 
 /**
@@ -321,9 +320,6 @@ SineWaves.prototype.running = true;
 SineWaves.prototype.loop = function() {
   if (this.running === true) {
     this.update();
-  }
-
-  if (!this.isLoopBlocked) {
     window.requestAnimationFrame(this.loop.bind(this));
   }
 };
@@ -332,15 +328,15 @@ SineWaves.prototype.loop = function() {
  * Block loop
  */
 SineWaves.prototype.blockLoop = function() {
-  this.isLoopBlocked = true;
+  this.running = false
 }
 
 /**
  * Unblock loop
  */
 SineWaves.prototype.unblockLoop = function() {
-  this.isLoopBlocked = false;
-  window.requestAnimationFrame(this.loop.bind(this));
+  this.running = true
+  window.requestAnimationFrame(this.loop.bind(this))
 }
 
 /**
